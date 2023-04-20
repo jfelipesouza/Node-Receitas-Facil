@@ -8,7 +8,7 @@ const deleteAccount = async (req: Request, res: Response) => {
 
   const deleteUser = await deleteUserById(id)
   if (deleteUser) {
-    return res.status(200).send({ id, message: deleteUser?.message })
+    return res.status(200).send({ message: deleteUser?.message })
   }
   return res.status(500).send({ message: 'Falha ao deletar' })
 }

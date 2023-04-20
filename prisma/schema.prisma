@@ -22,13 +22,14 @@ model User {
 }
 
 model Profile {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  nickname    String
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  nickname    String    @unique
   description String
   posts       Post[]
+  article     Article[]
   image       Image?
-  user        User?   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId      String? @unique @db.ObjectId
+  user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId      String?   @unique @db.ObjectId
 
   @@map(name: "profiles")
 }
@@ -42,6 +43,19 @@ model Post {
   profilesId String   @db.ObjectId
 
   @@map(name: "posts")
+}
+
+model Article {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  title    String
+  author   Profile? @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  authorId String   @unique @db.ObjectId
+  content  Json
+  images   Image[]
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  @@map(name: "articles")
 }
 
 model Revenue {
@@ -69,6 +83,8 @@ model Image {
   revenueId    String?  @unique @db.ObjectId
   profile      Profile? @relation(fields: [profileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   profileId    String?  @unique @db.ObjectId
+  article      Article? @relation(fields: [articleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  articleId    String   @unique @db.ObjectId
 
   @@map(name: "images")
 }
