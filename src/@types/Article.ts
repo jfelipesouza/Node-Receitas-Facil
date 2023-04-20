@@ -1,5 +1,9 @@
 import { ImageDto } from './Image'
 
+export type ArticlesPagination = {
+  initialElement: number
+  lastElement: number
+}
 export type ArticleContent = [
   {
     subTitle: string

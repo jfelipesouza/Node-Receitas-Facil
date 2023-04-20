@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { uploadImageDB } from '../../../../services/database/ImageTabaleUtils'
+import { uploadImageDB } from '../../../../services/database/ImageTableUtils'
 
 const uploadImage = async (req: Request, res: Response) => {
   const file = req.file

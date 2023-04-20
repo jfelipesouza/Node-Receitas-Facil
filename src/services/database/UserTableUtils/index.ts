@@ -3,18 +3,28 @@ import { prismaClientDatabase } from '../prisma'
 import { UserDTO } from '../../../@types/user'
 import { ProfileDTO } from '../../../@types/profile'
 
-const getAllUsers = async (allInformation: boolean) => {
+const getAllUsers = async (
+  allInformation: boolean,
+  skip: number = 0,
+  take: number = 1
+) => {
   try {
-    const users = await prismaClientDatabase.user.findMany({
-      select: {
-        id: true,
-        email: true,
-        profile: allInformation,
-        createAt: true,
-        updatedAt: true
-      }
-    })
-    return { users }
+    const [users, total] = await prismaClientDatabase.$transaction([
+      prismaClientDatabase.user.findMany({
+        select: {
+          id: true,
+          email: true,
+          profile: allInformation,
+          createAt: true,
+          updatedAt: true
+        },
+        skip,
+        take
+      }),
+      prismaClientDatabase.user.count()
+    ])
+
+    return { total, users }
   } catch (e) {
     console.log(e)
   }
