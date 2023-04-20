@@ -10,7 +10,8 @@ const getAllUsers = async (allInformation: boolean) => {
         id: true,
         email: true,
         profile: allInformation,
-        createAt: true
+        createAt: true,
+        updatedAt: true
       }
     })
     return { users }
@@ -47,7 +48,6 @@ const createNewUser = async ({ email, password }: UserDTO) => {
         password,
         profile: {
           create: {
-            image: '',
             nickname: 'Desconhecido',
             description: 'Olá! Sou novo aqui'
           }
@@ -65,7 +65,6 @@ const createNewUser = async ({ email, password }: UserDTO) => {
 const updateProfileInformation = async ({
   description,
   id,
-  image,
   nickname
 }: ProfileDTO) => {
   try {
@@ -75,7 +74,6 @@ const updateProfileInformation = async ({
       },
       data: {
         description,
-        image,
         nickname
       }
     })

@@ -16,21 +16,32 @@ model User {
   password  String
   createAt  DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-  profile   Profile?  @relation(fields: [profileId], references: [id])
-  profileId String?   @unique @db.ObjectId
+  profile   Profile?
 
   @@map(name: "users")
 }
 
 model Profile {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   nickname    String
-  image       String
   description String
   posts       Post[]
-  User        User?
+  image       Image?
+  user        User?   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId      String? @unique @db.ObjectId
 
   @@map(name: "profiles")
+}
+
+model Post {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  createAt   DateTime @default(now())
+  updateAt   DateTime @updatedAt
+  revenue    Revenue?
+  profile    Profile  @relation(fields: [profilesId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profilesId String   @db.ObjectId
+
+  @@map(name: "posts")
 }
 
 model Revenue {
@@ -39,32 +50,25 @@ model Revenue {
   foodDescription String
   ingredients     String
   preparation     String[]
-  image           String
   preparationTime Int
   createAt        DateTime @default(now())
   updateAt        DateTime @updatedAt
-  post            Post?
+  image           Image?
+  post            Post?    @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  postId          String   @unique @db.ObjectId
 
   @@map(name: "revenues")
 }
 
-model Post {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  createAt   DateTime @default(now())
-  updateAt   DateTime @updatedAt
-  revenue    Revenue  @relation(fields: [revenueId], references: [id])
-  revenueId  String   @unique @db.ObjectId
-  profile    Profile  @relation(fields: [profilesId], references: [id])
-  profilesId String   @db.ObjectId
-
-  @@map(name: "posts")
-}
-
 model Image {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   file         String
   mimeType     String
   originalName String
+  revenue      Revenue? @relation(fields: [revenueId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  revenueId    String?  @unique @db.ObjectId
+  profile      Profile? @relation(fields: [profileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profileId    String?  @unique @db.ObjectId
 
   @@map(name: "images")
 }

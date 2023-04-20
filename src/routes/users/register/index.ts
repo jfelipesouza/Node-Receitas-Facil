@@ -10,14 +10,17 @@ import {
 export const userRegister = async (req: Request, res: Response) => {
   const { email, password }: UserDTO = req.body
 
-  const findUser = await getUserByEmail(email, false)
+  if (email && password) {
+    const findUser = await getUserByEmail(email, false)
 
-  if (findUser?.user) {
-    return res.status(400).send({ message: 'Usuario existente' })
+    if (findUser?.user) {
+      return res.status(400).send({ message: 'Usuario existente' })
+    }
+
+    const passwordHash = await hash(password, 10)
+    const user = await createNewUser({ email, password: passwordHash })
+
+    return res.status(201).send({ message: 'created', user })
   }
-
-  const passwordHash = await hash(password, 10)
-  const user = await createNewUser({ email, password: passwordHash })
-
-  return res.status(201).send({ message: 'created', user })
+  return res.status(400).send({ message: 'Requisição invalida' })
 }
