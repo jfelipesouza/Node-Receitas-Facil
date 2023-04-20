@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String    @unique
+  password  String
+  createAt  DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+  profile   Profile?  @relation(fields: [profileId], references: [id])
+  profileId String?   @unique @db.ObjectId
+
+  @@map(name: "users")
+}
+
+model Profile {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  nickname    String
+  image       String
+  description String
+  posts       Post[]
+  User        User?
+
+  @@map(name: "profiles")
+}
+
+model Revenue {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  foodName        String
+  foodDescription String
+  ingredients     String
+  preparation     String[]
+  image           String
+  preparationTime Int
+  createAt        DateTime @default(now())
+  updateAt        DateTime @updatedAt
+  post            Post?
+
+  @@map(name: "revenues")
+}
+
+model Post {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  createAt   DateTime @default(now())
+  updateAt   DateTime @updatedAt
+  revenue    Revenue  @relation(fields: [revenueId], references: [id])
+  revenueId  String   @unique @db.ObjectId
+  profile    Profile  @relation(fields: [profilesId], references: [id])
+  profilesId String   @db.ObjectId
+
+  @@map(name: "posts")
+}
+
+model Image {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  file         String
+  mimeType     String
+  originalName String
+
+  @@map(name: "images")
+}

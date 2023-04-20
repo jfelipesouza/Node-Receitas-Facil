@@ -1,0 +1,38 @@
+{
+  "name": "receitas",
+  "version": "1.0.0",
+  "description": "Api de listagem e criação de receitas",
+  "author": "Joao Feipe de Oliveira Souza",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx watch --no-cache src/index.ts",
+    "generate": "npx prisma generate",
+    "studio": "npx prisma studio"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/morgan": "^1.9.4",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^18.15.11",
+    "prisma": "^4.13.0",
+    "ts-node": "^10.9.1",
+    "tsup": "^6.7.0",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.13.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.0",
+    "jwt-decode": "^3.1.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "zod": "^3.21.4"
+  }
+}
