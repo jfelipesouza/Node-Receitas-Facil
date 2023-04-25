@@ -5,7 +5,6 @@ import { userRegister } from './register'
 import { updateProfileInformation } from './updateProfileInformations'
 import { singINUser } from './login'
 import { deleteAccount } from './deleteAccount'
-import { articlesRouters } from '../articles'
 
 const usersRouters = Router()
 
@@ -43,5 +42,4 @@ usersRouters.put('/profile', updateProfileInformation)
 // Delete Routers
 usersRouters.delete('/', deleteAccount)
 
-usersRouters.use('/articles', articlesRouters)
 export { usersRouters }

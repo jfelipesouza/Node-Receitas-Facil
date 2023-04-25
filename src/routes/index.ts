@@ -1,11 +1,15 @@
 import { Request, Response, Router } from 'express'
 import { usersRouters } from './users'
 import { uploadRouters } from './upload'
+import { revenueRouters } from './revenue'
+import { categoryRouters } from './category'
 
 const router = Router()
 const port = process.env.PORT || 3001
 
 router.use('/users', usersRouters)
+router.use('/category', categoryRouters)
+router.use('/revenues', revenueRouters)
 router.use('/files/upload', uploadRouters)
 
 router.get('/', (req: Request, res: Response) => {

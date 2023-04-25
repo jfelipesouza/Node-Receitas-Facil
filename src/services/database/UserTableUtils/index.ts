@@ -14,7 +14,12 @@ const getAllUsers = async (
         select: {
           id: true,
           email: true,
-          profile: allInformation,
+          profile: {
+            include: {
+              Revenue: allInformation,
+              image: allInformation
+            }
+          },
           createAt: true,
           updatedAt: true
         },
@@ -27,6 +32,8 @@ const getAllUsers = async (
     return { total, users }
   } catch (e) {
     console.log(e)
+  } finally {
+    await prismaClientDatabase.$disconnect()
   }
   return null
 }
@@ -46,6 +53,8 @@ const getUserByEmail = async (email: string, allInformation: boolean) => {
     }
   } catch (e) {
     console.log(e)
+  } finally {
+    await prismaClientDatabase.$disconnect()
   }
   return null
 }
@@ -68,6 +77,8 @@ const createNewUser = async ({ email, password }: UserDTO) => {
     return { user }
   } catch (e) {
     console.log(e)
+  } finally {
+    await prismaClientDatabase.$disconnect()
   }
   return null
 }
@@ -90,6 +101,8 @@ const updateProfileInformation = async ({
     return { profile }
   } catch (e) {
     console.log(e)
+  } finally {
+    await prismaClientDatabase.$disconnect()
   }
   return null
 }
@@ -103,7 +116,14 @@ const deleteUserById = async (id: string) => {
     if (findUser) {
       await prismaClientDatabase.user.delete({
         where: { id },
-        include: { profile: { include: { posts: true } } }
+        include: {
+          profile: {
+            include: {
+              image: true,
+              Revenue: true
+            }
+          }
+        }
       })
       return { message: 'Success' }
     }
@@ -112,6 +132,8 @@ const deleteUserById = async (id: string) => {
   } catch (e) {
     console.log(e)
     return { message: 'Failed' }
+  } finally {
+    await prismaClientDatabase.$disconnect()
   }
 }
 

@@ -22,7 +22,7 @@ const storage = {
 
 const multerConfig: Options = {
   dest: uploadDir,
-  storage: storage.memory,
+  storage: storage.disk,
   limits: {
     fileSize: 2 * 1024 * 1024 // 2mb
   },
