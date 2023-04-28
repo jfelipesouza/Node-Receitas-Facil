@@ -28,7 +28,7 @@ model Profile {
   image       Image?
   user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId      String?   @unique @db.ObjectId
-  Revenue     Revenue[]
+  revenues    Revenue[]
 
   @@map(name: "profiles")
 }
@@ -53,8 +53,8 @@ model Revenue {
   createAt        DateTime  @default(now())
   updateAt        DateTime  @updatedAt
   image           Image?
-  profile         Profile   @relation(fields: [profilesId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  profilesId      String    @db.ObjectId
+  profile         Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  profileId       String    @db.ObjectId
   category        Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   categoryId      String?   @db.ObjectId
 

@@ -1,0 +1,144 @@
+{
+  "revenues": [
+    {
+      "id": "644936513bb973aa8d962f35",
+      "foodName": "Crepioca de banana",
+      "foodDescription": "Deliciosa tapioca de banana",
+      "ingredients": [
+        {
+          "count": 4,
+          "name": "ovos"
+        },
+        {
+          "count": 4,
+          "name": "claras"
+        },
+        {
+          "count": 4,
+          "name": "colheres (sopa) de goma hidratada de mandioca"
+        },
+        {
+          "count": 1,
+          "name": "colher (sopa) de farinha de linhaça"
+        },
+        {
+          "count": 1,
+          "name": "colher (sopa) de açúcar mascavo"
+        },
+        {
+          "count": 2,
+          "name": "colheres (sopa) de manteiga"
+        },
+        {
+          "count": 3,
+          "name": "bananas maduras em rodelas"
+        },
+        {
+          "count": 1,
+          "name": "Suco de 1/2 laranja pera"
+        },
+        {
+          "count": 1,
+          "name": "colher (café) de canela em pó"
+        },
+        {
+          "count": 1,
+          "name": "mel para regar"
+        }
+      ],
+      "preparation": [
+        "Em uma tigela, misture os ovos, as claras, a goma, a farinha da linhaça e o açúcar",
+        "Bata com um batedor de arame e divida em 4 porções",
+        "Aqueça uma frigideira antiaderente média, em fogo médio, coloque 1 porção da massa",
+        "Vire a massa a cada 3 minutos",
+        "Em uma frigideira antiaderente, derreta a manteiga, em fogo médio e polvilhe o açúcar.",
+        "Após o deretimento do açúcar,junte as bananas e acrescente o suco",
+        "Deixe cozinhar por 2 minutos",
+        "Junte a canela e misture",
+        "Divida o recheio entre as massas, colocando no centro.",
+        "Dobre as duas pontas para o centro, regue com mel e sirva."
+      ],
+      "calories": "250 KCAL",
+      "portions": 4,
+      "preparationTime": 50,
+      "createAt": "2023-04-26T14:33:52.025Z",
+      "updateAt": "2023-04-26T14:33:52.025Z",
+      "profileId": "6446adfa302d93fd13a8b015",
+      "categoryId": "644685fff0cf6a130eef02ba"
+    },
+    {
+      "id": "644939e1b88696cd442ef949",
+      "foodName": "Crepioca recheada com frango",
+      "foodDescription": "Deliciosa tapioca com recheio de frango",
+      "ingredients": [
+        {
+          "count": 6,
+          "name": "ovos"
+        },
+        {
+          "count": 2,
+          "name": "xícaras (chá) de goma de tapioca hidratada"
+        },
+        {
+          "count": 2,
+          "name": "colheres (sopa) de requeijão cremoso"
+        },
+        {
+          "count": 1,
+          "name": "colher (café) de sal"
+        },
+        {
+          "count": 1,
+          "name": "Manteiga para untar"
+        },
+        {
+          "count": 2,
+          "name": "colheres (sopa) de azeite"
+        },
+        {
+          "count": 1,
+          "name": "cebola picada"
+        },
+        {
+          "count": 1,
+          "name": "lata de ervilha escorrida"
+        },
+        {
+          "count": 1,
+          "name": "lata de milho verde escorrido"
+        },
+        {
+          "count": 1,
+          "name": "tomate picado"
+        },
+        {
+          "count": 1,
+          "name": "pitada de sal e cheiro-verde picado a gosto"
+        },
+        {
+          "count": 1,
+          "name": " xícara (chá) de requeijão cremoso"
+        }
+      ],
+      "preparation": [
+        "Bata no com um garfo os ovos, a tapioca, o requeijão e o sal até ficar homogêneo",
+        "Aqueça uma frigideira untada, em fogo médio e coloque 1 concha da massa, girando para espalhar",
+        "Frite até dourar e firmar, vire e frite por 2 minutos do outro lado",
+        "Retire e repita o procedimento com a massa restante",
+        "Aqueça uma panela com o azeite, em fogo médio, e frite a cebola até dourar.",
+        "Adicione o frango, a ervilha, o milho, o tomate, sal, cheiro-verde e refogue por 3 minutos",
+        "Desligue, misture com o requeijão e reserve",
+        "Divida o refogado entre as massas e dobre ao meio",
+        "Arrume em um refratário e sirva"
+      ],
+      "calories": "300 KCAL",
+      "portions": 5,
+      "preparationTime": 60,
+      "createAt": "2023-04-26T14:49:04.122Z",
+      "updateAt": "2023-04-26T14:49:04.122Z",
+      "profileId": "6446adfa302d93fd13a8b015",
+      "categoryId": "644685fff0cf6a130eef02ba"
+    }
+  ],
+  "count": 2
+}

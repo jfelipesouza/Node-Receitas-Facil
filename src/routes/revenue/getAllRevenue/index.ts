@@ -3,14 +3,15 @@ import { getAllRevenuesInDB } from '../../../services/database/RevenueTableUtils
 
 export const getAllRevenues = async (req: Request, res: Response) => {
   const { allInformation, initialElement, lastElement } = req.body
+  if (allInformation != null && initialElement != null && lastElement != null) {
+    const revenues = await getAllRevenuesInDB(
+      allInformation,
+      initialElement,
+      lastElement
+    )
+    if (revenues)
+      return res.status(200).send({ revenues, count: revenues.length })
+  }
 
-  const revenues = await getAllRevenuesInDB(
-    allInformation,
-    initialElement,
-    lastElement
-  )
-  if (revenues)
-    return res.send({ revenues, count: revenues.length }).status(200)
-
-  return res.send({ message: 'Falha ao buscar' }).status(404)
+  return res.status(404).send({ message: 'Falha ao buscar' })
 }

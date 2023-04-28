@@ -16,7 +16,7 @@ const getAllUsers = async (
           email: true,
           profile: {
             include: {
-              Revenue: allInformation,
+              revenues: allInformation,
               image: allInformation
             }
           },
@@ -120,7 +120,7 @@ const deleteUserById = async (id: string) => {
           profile: {
             include: {
               image: true,
-              Revenue: true
+              revenues: true
             }
           }
         }
