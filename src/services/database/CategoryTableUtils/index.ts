@@ -1,5 +1,11 @@
 import { prismaClientDatabase } from '../prisma'
 
+type GetRevenueByCategoryParams = {
+  name: string
+  start: number
+  end: number
+}
+
 export const getAllCategory = async () => {
   try {
     const categories = await prismaClientDatabase.category.findMany({
@@ -16,21 +22,28 @@ export const getAllCategory = async () => {
   }
 }
 
-export const getCategoryByName = async (
-  name: string,
-  allInformation: boolean = false
+export const getRevenuesByCategory = async (
+  data: GetRevenueByCategoryParams
 ) => {
   try {
-    const categorie = await prismaClientDatabase.category.findFirst({
+    const revenues = await prismaClientDatabase.category.findFirst({
       where: {
-        name
+        name: data.name
       },
-      include: {
-        revenues: allInformation
-      }
+      select: {
+        revenues: {
+          select: {
+            id: true,
+            foodName: true,
+            image: { select: { id: true } }
+          }
+        }
+      },
+      skip: data.start,
+      take: data.end
     })
 
-    return { categorie }
+    return revenues?.revenues
   } catch (error) {
     console.log(error)
   } finally {
@@ -39,8 +52,10 @@ export const getCategoryByName = async (
 }
 export const createCategoryInDB = async (name: string) => {
   try {
-    const findCategory = await getCategoryByName(name, false)
-    if (findCategory?.categorie) {
+    const findCategory = await prismaClientDatabase.category.findFirst({
+      where: { name: name }
+    })
+    if (findCategory) {
       return { message: 'Categoria existente' }
     }
     const categorie = await prismaClientDatabase.category.create({
