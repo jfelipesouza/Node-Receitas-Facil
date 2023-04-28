@@ -24,13 +24,20 @@ export const createRevenueInDB = async ({
         preparation,
         ingredients,
         image: { connect: { id: image.id } },
-        category: { connect: { id: category } },
-        profile: { connect: { id: profile.id } }
+        profile: { connect: { id: profile.id } },
+        categories: {
+          connect: category.map(e => {
+            return { name: e }
+          })
+        }
       }
     })
-    return { revenue }
+
+    return revenue
   } catch (error) {
     console.log(error)
+  } finally {
+    await prismaClientDatabase.$disconnect()
   }
 }
 
@@ -40,7 +47,10 @@ export const getRevenueById = async (id: string) => {
       where: {
         id
       },
-      include: { image: true }
+      include: {
+        image: { select: { id: true } },
+        categories: { select: { name: true } }
+      }
     })
 
     if (revenue) {
@@ -54,9 +64,9 @@ export const getRevenueById = async (id: string) => {
         portions: revenue.portions,
         preparationTime: revenue.preparationTime,
         image: {
-          file: revenue.image?.file,
-          mimeType: revenue.image?.mimeType
-        }
+          id: revenue.image?.id
+        },
+        categories: revenue.categories
       }
     }
     return null
@@ -68,7 +78,6 @@ export const getRevenueById = async (id: string) => {
 }
 
 export const getAllRevenuesInDB = async (
-  allInformation: boolean = false,
   skip: number = 0,
   take: number = 10
 ) => {
@@ -77,9 +86,8 @@ export const getAllRevenuesInDB = async (
       select: {
         id: true,
         foodName: true,
-        image: allInformation
-          ? { select: { mimeType: allInformation, file: allInformation } }
-          : allInformation
+        image: { select: { id: true } },
+        categories: { select: { name: true } }
       },
       skip,
       take
@@ -90,40 +98,6 @@ export const getAllRevenuesInDB = async (
     return null
   } catch (e) {
     console.log(e)
-  } finally {
-    await prismaClientDatabase.$disconnect()
-  }
-}
-
-export const getAllRevenuesByCategoryInDB = async ({
-  id,
-  skip,
-  take,
-  allInformation
-}: {
-  id: string
-  skip: number
-  take: number
-  allInformation?: boolean
-}) => {
-  try {
-    const revenues = await prismaClientDatabase.revenue.findMany({
-      where: {
-        categoryId: id
-      },
-      select: {
-        id: true,
-        foodName: true,
-        image: allInformation
-          ? { select: { mimeType: allInformation, file: allInformation } }
-          : allInformation
-      },
-      skip,
-      take
-    })
-    return revenues
-  } catch (error) {
-    console.log(error)
   } finally {
     await prismaClientDatabase.$disconnect()
   }

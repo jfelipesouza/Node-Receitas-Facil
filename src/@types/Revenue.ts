@@ -24,5 +24,5 @@ export type CreateRevenue = {
   profile: {
     id: string
   }
-  category: string
+  category: string[]
 }

@@ -16,9 +16,9 @@ export const createRevenue = async (req: Request, res: Response) => {
     profile
   }: CreateRevenue = req.body
 
-  const revenue = await createRevenueInDB({
+  const data = {
     calories,
-    category,
+    category: category.map(e => e.toUpperCase()),
     foodDescription,
     foodName,
     image,
@@ -27,6 +27,9 @@ export const createRevenue = async (req: Request, res: Response) => {
     preparation,
     preparationTime,
     profile
-  })
-  return res.send({ revenue: revenue?.revenue })
+  }
+
+  const revenue = await createRevenueInDB(data)
+
+  return res.status(201).send({ revenue })
 }
