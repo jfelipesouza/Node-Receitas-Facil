@@ -36,11 +36,11 @@ export const getRevenuesByCategory = async (
             id: true,
             foodName: true,
             image: { select: { id: true } }
-          }
+          },
+          skip: data.start,
+          take: data.end
         }
-      },
-      skip: data.start,
-      take: data.end
+      }
     })
 
     return revenues?.revenues
@@ -50,6 +50,7 @@ export const getRevenuesByCategory = async (
     await prismaClientDatabase.$disconnect()
   }
 }
+
 export const createCategoryInDB = async (name: string) => {
   try {
     const findCategory = await prismaClientDatabase.category.findFirst({

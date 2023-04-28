@@ -1,7 +1,4 @@
 import { Request, Response } from 'express'
-import fs from 'fs'
-import sharp from 'sharp'
-import { resolve } from 'path'
 
 import { uploadImageDB } from '../../../../services/database/ImageTableUtils'
 
