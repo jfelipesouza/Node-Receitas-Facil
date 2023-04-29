@@ -35,7 +35,7 @@ export const getRevenuesByCategory = async (
           select: {
             id: true,
             foodName: true,
-            image: { select: { id: true, mimeType: true, file: true } }
+            image: { select: { id: true } }
           },
           skip: data.start,
           take: data.end
