@@ -54,7 +54,6 @@ export const getRevenueById = async (id: string) => {
     })
 
     if (revenue) {
-      console.log(revenue)
       return {
         id: revenue.id,
         foodName: revenue.foodName,

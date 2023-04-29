@@ -12,7 +12,6 @@ const getImageById = async (id: string) => {
       where: { id },
       select: { file: true, mimeType: true }
     })
-    console.log(image)
     return image
   } catch (e) {
     console.log(e)
@@ -26,7 +25,6 @@ const uploadImageDB = async ({ mimeType, originalName, file }: ImageDto) => {
     const image = await prismaClientDatabase.image.create({
       data: { file, originalName, mimeType }
     })
-    console.log(image)
     return { image }
   } catch (e) {
     console.log(e)

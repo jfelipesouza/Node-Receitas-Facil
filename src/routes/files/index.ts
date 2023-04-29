@@ -5,13 +5,14 @@ import { uploadImage } from './image/uploadImage'
 import { multerConfig } from '../../services/config/multer'
 import { getImageById } from '../../services/database/ImageTableUtils'
 
-const uploadRouters = Router()
+const filesRouters = Router()
 
-uploadRouters.post('/images', multer(multerConfig).single('file'), uploadImage)
-uploadRouters.get('/images', async (req: Request, res: Response) => {
-  const { id } = await req.body
-  const image = await getImageById(id)
+filesRouters.post('/images', multer(multerConfig).single('file'), uploadImage)
+
+filesRouters.get('/images', async (req: Request, res: Response) => {
+  const { id } = req.query
+  const image = await getImageById(String(id))
   return res.send({ image })
 })
 
-export { uploadRouters }
+export { filesRouters }

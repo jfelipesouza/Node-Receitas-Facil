@@ -25,7 +25,6 @@ usersRouters.get('/', async (req: Request, res: Response) => {
     lastElement
   )
   if (findUsers != null) {
-    console.log({ users: findUsers.users })
     return res.status(200).send({ ...findUsers })
   } else {
     return res.status(404).send({ message: 'ERROR! Users not found' })

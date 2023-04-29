@@ -11,7 +11,6 @@ export const getAllRevenues = async (
   res: Response
 ) => {
   const { start, end } = req.query
-
   if (start != null && end != null) {
     const revenues = await getAllRevenuesInDB(Number(start), Number(end))
     if (revenues) return res.status(200).send({ revenues })
