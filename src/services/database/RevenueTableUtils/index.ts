@@ -1,3 +1,4 @@
+import e from 'express'
 import { CreateRevenue } from '../../../@types/Revenue'
 import { prismaClientDatabase } from '../prisma'
 
@@ -48,7 +49,7 @@ export const getRevenueById = async (id: string) => {
         id
       },
       include: {
-        image: { select: { id: true } },
+        image: { select: { mimeType: true, file: true } },
         categories: { select: { name: true } }
       }
     })
@@ -62,9 +63,7 @@ export const getRevenueById = async (id: string) => {
         calories: revenue.calories,
         portions: revenue.portions,
         preparationTime: revenue.preparationTime,
-        image: {
-          id: revenue.image?.id
-        },
+        image: revenue.image,
         categories: revenue.categories
       }
     }
@@ -97,6 +96,28 @@ export const getAllRevenuesInDB = async (
     return null
   } catch (e) {
     console.log(e)
+  } finally {
+    await prismaClientDatabase.$disconnect()
+  }
+}
+
+export const getRandomRevenuesInDB = async () => {
+  try {
+    const numberOfRevenuesInDB = await prismaClientDatabase.revenue.count()
+
+    const findRandomRevenue = await prismaClientDatabase.revenue.findMany({
+      skip: Math.floor(Math.random() * numberOfRevenuesInDB),
+      take: 1,
+
+      select: {
+        id: true,
+        foodName: true,
+        image: { select: { mimeType: true, file: true } }
+      }
+    })
+    return findRandomRevenue[0]
+  } catch (error) {
+    console.log(error)
   } finally {
     await prismaClientDatabase.$disconnect()
   }
