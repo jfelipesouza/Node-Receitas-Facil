@@ -1,4 +1,3 @@
-import e from 'express'
 import { CreateRevenue } from '../../../@types/Revenue'
 import { prismaClientDatabase } from '../prisma'
 
@@ -84,7 +83,7 @@ export const getAllRevenuesInDB = async (
       select: {
         id: true,
         foodName: true,
-        image: { select: { id: true } },
+        image: { select: { mimeType: true, file: true } },
         categories: { select: { name: true } }
       },
       skip,
