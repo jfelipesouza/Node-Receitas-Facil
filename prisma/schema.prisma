@@ -74,3 +74,23 @@ model Image {
 
   @@map(name: "images")
 }
+
+model Restaurant {
+  id           String           @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  numberOfStar Int
+  address      String
+  image        RestaurantImage?
+
+  @@map("restaurants")
+}
+
+model RestaurantImage {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  file         String
+  mimeType     String
+  resturant    Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  restaurantId String?     @unique @db.ObjectId
+
+  @@map("restaurantImages")
+}
