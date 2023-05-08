@@ -76,9 +76,28 @@ export const getRevenueById = async (id: string) => {
 
 export const getAllRevenuesInDB = async (
   skip: number = 0,
-  take: number = 10
+  take: number = 10,
+  filter?: string
 ) => {
   try {
+    if (filter) {
+      const revenues = await prismaClientDatabase.revenue.findMany({
+        where: {
+          foodName: { contains: filter }
+        },
+        select: {
+          id: true,
+          foodName: true,
+          image: { select: { mimeType: true, file: true } },
+          categories: { select: { name: true } }
+        },
+        skip,
+        take
+      })
+      if (revenues) {
+        return revenues
+      }
+    }
     const revenues = await prismaClientDatabase.revenue.findMany({
       select: {
         id: true,
