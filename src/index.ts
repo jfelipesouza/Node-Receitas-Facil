@@ -1,7 +1,8 @@
-import { app } from './services/config/server'
+import { server } from './services/config/server'
+import './services/config/websocket'
 
 const port = process.env.PORT || 3001
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`the server is online in port ${port}`)
 })

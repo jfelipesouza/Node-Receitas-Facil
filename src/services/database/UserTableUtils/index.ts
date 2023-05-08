@@ -59,7 +59,7 @@ const getUserByEmail = async (email: string, allInformation: boolean) => {
   return null
 }
 
-const createNewUser = async ({ email, password }: UserDTO) => {
+const createNewUser = async ({ email, password, nickname }: UserDTO) => {
   try {
     const user = await prismaClientDatabase.user.create({
       data: {
@@ -67,14 +67,23 @@ const createNewUser = async ({ email, password }: UserDTO) => {
         password,
         profile: {
           create: {
-            nickname: 'Desconhecido',
+            nickname: nickname,
             description: 'Olá! Sou novo aqui'
           }
         }
       }
     })
 
-    return { user }
+    const findUser = await prismaClientDatabase.user.findFirst({
+      where: {
+        id: user.id
+      },
+      include: {
+        profile: true
+      }
+    })
+
+    return findUser
   } catch (e) {
     console.log(e)
   } finally {

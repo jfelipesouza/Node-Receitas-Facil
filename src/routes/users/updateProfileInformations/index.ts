@@ -3,11 +3,10 @@ import { ProfileDTO } from '../../../@types/profile'
 import { updateProfileInformation as updateProfile } from '../../../services/database/UserTableUtils'
 
 export const updateProfileInformation = async (req: Request, res: Response) => {
-  const { description, id, image, nickname }: ProfileDTO = req.body
+  const { description, id, nickname }: ProfileDTO = req.body
   const profileUpdated = await updateProfile({
     description,
     id,
-    image,
     nickname
   })
 

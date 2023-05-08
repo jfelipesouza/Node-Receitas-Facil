@@ -10,15 +10,17 @@ const DECODE_TOKEN = process.env.JWT_CODE
 export const singINUser = async (req: Request, res: Response) => {
   const { email, password }: UserDTO = req.body
 
+  console.log({ email, password })
+
   const findUser = await getUserByEmail(email, true)
 
   if (!findUser) {
-    return res.status(404).send('Usuario não encontrado')
+    return res.status(200).send({ message: 'E-mail ou senha incorretos' })
   }
 
   const passwordMatch = await compare(password, findUser.user.password)
   if (!passwordMatch) {
-    return res.status(404).send('E-mail ou senha incorretos')
+    return res.status(200).send({ message: 'E-mail ou senha incorretos' })
   }
 
   const token = sign(findUser, DECODE_TOKEN!, {
