@@ -13,6 +13,8 @@ const DECODE_TOKEN = process.env.JWT_CODE
 export const userRegister = async (req: Request, res: Response) => {
   const { email, password, nickname }: UserDTO = req.body
 
+  console.log({ email, password, nickname })
+
   if (email && password && nickname) {
     const findUser = await getUserByEmail(email, false)
 

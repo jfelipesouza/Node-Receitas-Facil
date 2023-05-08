@@ -11,13 +11,9 @@ export const getAllRevenues = async (
   req: Request<any, any, any, Params>,
   res: Response
 ) => {
-  const { start, end, filter } = req.query
+  const { start, end } = req.query
   if (start != null && end != null) {
-    const revenues = await getAllRevenuesInDB(
-      Number(start),
-      Number(end),
-      String(filter)
-    )
+    const revenues = await getAllRevenuesInDB(Number(start), Number(end))
     if (revenues) return res.status(200).send({ revenues })
     return res.status(500).send({ message: 'falha ao buscar receitas' })
   }
